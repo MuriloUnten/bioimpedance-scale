@@ -57,7 +57,6 @@ export class Storage {
         const result = await this.db.getAllAsync(`
             SELECT id_user, first_name, last_name, height, sex, date_of_birth FROM user;
         `);
-        console.log("here lol");
         result.forEach((user: any) => console.log(user.first_name))
 
         return result.map<User>((u: any) => {
@@ -80,18 +79,74 @@ export class Storage {
         return result?.userId;
     }
 
+    public async deleteUser(id: number): Promise<number> {
+        const query = "DELETE FROM user WHERE id_user = ?";
+        const result = await this.db.runAsync(query, id);
+        return result.changes;
+    }
+
     public async createBia(bia: Bia) {
-        const time = new Date();
+        const time = new Date().toISOString();
         const userId = await this.getCurrentUserId();
         if (!userId) {
             return;
         }
 
         const query = await this.db.prepareAsync(`
-            INSERT INTO bia (id_user, timestamp, weight, muscle_mass, fat_mass, water_mass) values (?, datetime(?), ?, ?, ?, ?);
+            INSERT INTO bia (id_user, timestamp, weight, muscle_mass, fat_mass, water_mass) values (?, ?, ?, ?, ?, ?);
         `);
         await query.executeAsync(userId, time, bia.weight, bia.muscleMass, bia.fatMass, bia.waterMass);
         return;
+    }
+
+    public async getBia(id: number): Promise<Bia|null> {
+        const query = await this.db.prepareAsync(`
+            SELECT id_bia, id_user, timestamp, weight, muscle_mass, fat_mass, water_mass FROM bia
+            WHERE id_bia = ?;
+        `);
+
+        const result = await query.executeAsync(id);
+        const biaData: any = await result.getFirstAsync();
+
+        const bia: Bia = {
+            id: biaData.id_bia,
+            userId: biaData.id_user,
+            timestamp: new Date(biaData.timestamp),
+            weight: biaData.weight,
+            muscleMass: biaData.muscle_mass,
+            fatMass: biaData.fat_mass,
+            waterMass: biaData.water_mass,
+        };
+        return bia;
+    }
+
+    public async getBias(): Promise<Bia[]> {
+        const userId = await this.getCurrentUserId();
+        if (!userId) {
+            return [];
+        }
+
+        const query = "SELECT id_bia, id_user, timestamp, weight, muscle_mass, fat_mass, water_mass FROM bia WHERE id_user = ?";
+        const result = await this.db.getAllAsync(query , userId);
+
+        return result.map<Bia>((el: any) => {
+            const bia: Bia = {
+                id: el.id_bia,
+                userId: el.id_user,
+                timestamp: el.timestamp,
+                weight: el.weight,
+                muscleMass: el.muscle_mass,
+                fatMass: el.fat_mass,
+                waterMass: el.water_mass,
+            };
+            return bia;
+        });
+    }
+
+    public async deleteBia(id: number): Promise<number> {
+        const query = "DELETE FROM bia WHERE id_bia = ?";
+        const result = await this.db.runAsync(query, id);
+        return result.changes;
     }
 
     public setupTables(): number {
@@ -102,13 +157,13 @@ export class Storage {
                 last_name TEXT NOT NULL,
                 height DECIMAL(3,2) NOT NULL,
                 sex INTEGER NOT NULL,
-                date_of_birth DATE NOT NULL
+                date_of_birth TEXT NOT NULL
             );
 
             CREATE TABLE IF NOT EXISTS bia (
                 id_bia INTEGER PRIMARY KEY NOT NULL,
                 id_user INTEGER NOT NULL,
-                timestamp DATETIME NOT NULL,
+                timestamp TEXT NOT NULL,
                 weight FLOAT NOT NULL,
                 muscle_mass FLOAT NOT NULL,
                 fat_mass FLOAT NOT NULL,

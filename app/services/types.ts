@@ -9,13 +9,13 @@ export type User = {
     lastName: string;
     height: number;
     sex: Sex.MALE | Sex.FEMALE;
-    dateOfBirth: string; // TODO find out best solution for this
+    dateOfBirth: string;
 }
 
 export type Bia = {
     id: number;
     userId: number;
-    timestamp: Date | undefined; // TODO find out best solution for this
+    timestamp: Date | undefined;
     weight: number;
     muscleMass: number;
     fatMass: number;
