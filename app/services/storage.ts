@@ -2,7 +2,7 @@ import * as SQLite from "expo-sqlite";
 import * as FileSystem from "expo-file-system";
 import { Asset } from "expo-asset";
 
-import { User } from "./types";
+import { User, Bia } from "./types";
 
 const DB_NAME: string = "sqlite.db";
 
@@ -78,6 +78,20 @@ export class Storage {
             SELECT id_user as userId FROM current_user;
         `)
         return result?.userId;
+    }
+
+    public async createBia(bia: Bia) {
+        const time = new Date();
+        const userId = await this.getCurrentUserId();
+        if (!userId) {
+            return;
+        }
+
+        const query = await this.db.prepareAsync(`
+            INSERT INTO bia (id_user, timestamp, weight, muscle_mass, fat_mass, water_mass) values (?, datetime(?), ?, ?, ?, ?);
+        `);
+        await query.executeAsync(userId, time, bia.weight, bia.muscleMass, bia.fatMass, bia.waterMass);
+        return;
     }
 
     public setupTables(): number {

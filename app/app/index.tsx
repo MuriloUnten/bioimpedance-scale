@@ -5,6 +5,7 @@ import CreateUser from "../components/CreateUser"
 
 import { Button, Text, View, ScrollView } from "react-native";
 import { useState } from "react";
+import { Link } from "expo-router";
 
 // const murilo: User = {
 //     id: undefined,
@@ -59,7 +60,7 @@ export default function Index() {
             // justifyContent: "center",
             alignItems: "center",
         }}>
-            <Text>Database loaded</Text>
+            <Link href="/NewUser" style={{fontSize: 36}}>New User</Link>
             <Button title="Get Users" onPress={ async () => setUsers(await db.getUsers()) }/>
 
             <CreateUser />

@@ -12,12 +12,12 @@ export type User = {
     dateOfBirth: string; // TODO find out best solution for this
 }
 
-export type BIA = {
+export type Bia = {
     id: number;
     userId: number;
-    timestamp: number; // TODO find out best solution for this
+    timestamp: Date | undefined; // TODO find out best solution for this
     weight: number;
-    muscle_mass: number;
-    fat_mass: number;
-    water_mass: number;
+    muscleMass: number;
+    fatMass: number;
+    waterMass: number;
 }
