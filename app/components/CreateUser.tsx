@@ -3,19 +3,28 @@ import { Storage } from "@/services/storage"
 
 import { View, Text, TextInput, Button } from "react-native";
 import { useState } from "react";
+import { useRouter, useFocusEffect, Redirect } from "expo-router";
 
 const CreateUser = () => {
     const [firstName, onChangeFirstName] = useState<string>("");
     const [lastName, onChangeLastName] = useState<string>("");
-    const [height, onChangeHeight] = useState<string>(""); // TODO: this really shouldn't be a string
-    // const [sex, setSex] = useState<Sex>();
+    const [height, onChangeHeight] = useState<string>("");
     const [sex, onChangeSex] = useState<string>("");
     const [birthDate, onChangeBirthDate] = useState<string>("");
 
+    const [newUserId, setNewUserId] = useState<number>();
+
+    const router = useRouter();
     let db: Storage;
     Storage.getInstance(false)
         .then((result) => {
             db = result;
+        });
+
+        useFocusEffect(() => {
+            if (newUserId) {
+                router.replace('/');
+            }
         });
 
     return (
@@ -46,9 +55,28 @@ const CreateUser = () => {
             <Text>Date of Birth</Text>
             <TextInput value={ birthDate } onChangeText={ text => onChangeBirthDate(text) } placeholder="01/01/1970"/>
 
-            <Button title="Create User" onPress={ async () => await db.createUser(assembleUser()) }/>
+            <Button title="Create" onPress={ async () => {
+                try{
+                    const created = await createUser();
+                    if (created) {
+
+                    } else {
+                        // TODO add some error message here
+                    }
+                } catch (e) {
+                    console.log(e);
+                }
+            }}/>
         </View>
     );
+
+    async function createUser(): Promise<number> {
+        const userId = await db.createUser(assembleUser());
+        const success = await db.setCurrentUserId(userId);
+        setNewUserId(userId);
+
+        return success;
+    }
 
     function assembleUser(): User {
         const user: User = {

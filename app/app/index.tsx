@@ -1,46 +1,38 @@
-import { Storage } from "../services/storage"
-import { User } from "../services/types"
-import UserTestComponent from "../components/TestComponent"
-import CreateUser from "../components/CreateUser"
+import { Storage } from "@/services/storage"
+import { User } from "@/services/types"
+import Users from "@/components/Users"
 
 import { Button, Text, View, ScrollView } from "react-native";
-import { useState } from "react";
-import { Link } from "expo-router";
-
-// const murilo: User = {
-//     id: undefined,
-//     firstName: 'Murilo',
-//     lastName: 'Unten',
-//     height: 191,
-//     sex: Sex.MALE,
-//     dateOfBirth: '01/01/2000',
-// }
+import { useState, useEffect } from "react";
+import { Link, useRouter, useFocusEffect, Redirect } from "expo-router";
 
 export default function Index() {
     const [users, setUsers] = useState<User[]>([]);
-    // const [firstName, onChangeFirstName] = useState<string>("");
-    // const [lastName, onChangeLastName] = useState<string>("");
-    const [loadingDB, setLoadingDB] = useState<boolean>(true);
-    let db: Storage;
-    Storage.getInstance(false)
-        .then((result) => {
-            setLoadingDB(false)
-            db = result;
-        });
+    const [userId, setUserId] = useState<number|null>();
+    const [db, setDB] = useState<Storage>();
 
-    const Users = (): any => {
-        const usersJSX:any[] = [];
-        users.forEach((user: User) => {
-            usersJSX.push(UserTestComponent({user}))
-        });
-        return (
-            <View>
-            { usersJSX }
-            </View>
-        );
-    }
+    // let db: Storage;
+    // Storage.getInstance(false)
+    //     .then((result) => {
+    //         setLoadingDB(false);
+    //         db = result;
+    //     });
+    useEffect(() => {
+        async function setup() {
+            const db = await Storage.getInstance(false);
+            setDB(db);
 
-    if (loadingDB) {
+            const userId = await db.getCurrentUserId();
+            setUserId(userId);
+        }
+        if (!db || userId === undefined) {
+            setup();
+        }
+    }, [])
+    
+
+
+    if (!db) {
         return (
             <ScrollView
             contentContainerStyle={{
@@ -53,6 +45,10 @@ export default function Index() {
         );
     }
 
+    if (userId === null) {
+        return <Redirect href="/NewUser"/>;
+    }
+
     return (
         <ScrollView
         contentContainerStyle={{
@@ -60,16 +56,13 @@ export default function Index() {
             // justifyContent: "center",
             alignItems: "center",
         }}>
-            <Link href="/NewUser" style={{fontSize: 36}}>New User</Link>
+            <Link href="/NewUser" asChild>
+                <Button title="Create User" />
+            </Link>
+
             <Button title="Get Users" onPress={ async () => setUsers(await db.getUsers()) }/>
 
-            <CreateUser />
-
-            
-            {/*
-                <UserTestComponent user={ murilo }></UserTestComponent>
-            */}
-            <Users />
+            <Users users={users}/>
         </ScrollView>
     );
 }

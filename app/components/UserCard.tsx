@@ -5,15 +5,19 @@ import { View, Text } from "react-native";
 
 type UserProp = {
     user: User;
+    key: number;
 }
 
-const UserTestComponent = (props: UserProp) => {
+const UserCard = (props: UserProp) => {
     let db: Storage;
     Storage.getInstance(false)
         .then((result) => {
             db = result;
         });
     
+    const textStyle = {
+        fontSize: 16,
+    }
     return (
         <View
             style={{
@@ -24,17 +28,11 @@ const UserTestComponent = (props: UserProp) => {
                 margin: 8,
             }}
         >
-            <View style={{
-                justifyContent: "center",
-                flexDirection: "row",
-            }}>
-                <Text style={{ fontSize: 16, fontWeight: "bold" }}>User</Text>
-            </View>
-            <Text>{`Name: ${props.user.firstName} ${props.user.lastName}`}</Text>
-            <Text>{`Height: ${props.user.height}`}</Text>
-            <Text>{`Sex: ${props.user.sex === Sex.MALE? "Male" : "Female"}`}</Text>
+            <Text style={{fontWeight:"bold", ...textStyle}}>{`${props.user.firstName} ${props.user.lastName}`}</Text>
+            <Text style={textStyle}>{`Height: ${props.user.height}cm`}</Text>
+            <Text style={textStyle}>{`Sex: ${props.user.sex === Sex.MALE? "Male" : "Female"}`}</Text>
         </View>
     );
 }
 
-export default UserTestComponent;
+export default UserCard;

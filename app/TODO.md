@@ -1,13 +1,15 @@
 # TODOs
 
 ## Features
-- [ ] CRUD for BIAs
+- [x] CRUD for BIAs
 - [ ] Bluetooth connection
+- [ ] Implement form validation on user 
 
 ## Design
-- [ ] Implement provider pattern in order to use Storage from child components 
-- [ ] Implement dates and timestamps properly 
-
+- [ ] Implement dates and timestamps properly
+- [ ] Implement datepicker for user creation
+- [ ] Use some kind of selector for sex when creating user
+ 
 ## Miscellaneous
 - [ ] update readme
 

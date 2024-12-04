@@ -20,18 +20,24 @@ export class Storage {
     }
 
     private constructor() {
-        this.dbName = DB_NAME;
-        this.db = SQLite.openDatabaseSync(this.dbName);
-        this.setupTables();
+            this.dbName = DB_NAME;
+            this.db = SQLite.openDatabaseSync(this.dbName);
+        try {
+            this.setupTables();
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 
-    public async createUser(user: User) {
+    public async createUser(user: User): Promise<number> {
         console.log("inside createUser. User: ", user);
         const query = await this.db.prepareAsync(`
             INSERT INTO user (first_name, last_name, height, sex, date_of_birth) values (?, ?, ?, ?, ?);
         `);
-        await query.executeAsync(user.firstName, user.lastName, user.height, user.sex, user.dateOfBirth);
-        return;
+        const result = await query.executeAsync(user.firstName, user.lastName, user.height, user.sex, user.dateOfBirth);
+
+        return result.lastInsertRowId;
     }
 
     public async getUser(id: number): Promise<User|null> {
@@ -43,7 +49,7 @@ export class Storage {
         const userData: any = await result.getFirstAsync();
 
         const user: User = {
-            id: userData.id,
+            id: userData.id_user,
             firstName: userData.first_name,
             lastName: userData.last_name,
             height: userData.height,
@@ -61,7 +67,7 @@ export class Storage {
 
         return result.map<User>((u: any) => {
             const user: User = {
-                id: u.id,
+                id: u.id_user,
                 firstName: u.first_name,
                 lastName: u.last_name,
                 height: u.height,
@@ -72,16 +78,36 @@ export class Storage {
         });
     }
 
-    public async getCurrentUserId(): Promise<number | undefined> {
-        const result = await this.db.getFirstAsync<{ userId: number }>(`
-            SELECT id_user as userId FROM current_user;
-        `)
-        return result?.userId;
-    }
-
     public async deleteUser(id: number): Promise<number> {
         const query = "DELETE FROM user WHERE id_user = ?";
         const result = await this.db.runAsync(query, id);
+        return result.changes;
+    }
+
+    public async getCurrentUserId(): Promise<number | null> {
+        const result = await this.db.getFirstAsync<number>(`
+            SELECT id_user FROM current_user;
+        `);
+
+        return result;
+    }
+
+    public async setCurrentUserId(id: number): Promise<number> {
+        const userExists = await this.db.getFirstAsync<number>("SELECT 1 FROM user WHERE id_user = ?", id);
+        if (!userExists) {
+            return 0;
+        }
+        
+        const oldUserId = await this.getCurrentUserId();
+        if (oldUserId != null && oldUserId === id) {
+            return 1;
+        } else if (oldUserId != null) {
+            await this.db.runAsync("DELETE FROM current_user WHERE id_user = ?", oldUserId);
+        }
+        
+        const query = "INSERT INTO current_user (id_user) VALUES (?)";
+        const result = await this.db.runAsync(query, id);
+
         return result.changes;
     }
 
@@ -150,7 +176,8 @@ export class Storage {
     }
 
     public setupTables(): number {
-        const result = this.db.runSync(`
+        let changes = 0;
+        let result = this.db.runSync(`
             CREATE TABLE IF NOT EXISTS user (
                 id_user INTEGER PRIMARY KEY NOT NULL,
                 first_name TEXT NOT NULL,
@@ -159,7 +186,10 @@ export class Storage {
                 sex INTEGER NOT NULL,
                 date_of_birth TEXT NOT NULL
             );
+        `);
+        changes += result.changes;
 
+        result = this.db.runSync(`
             CREATE TABLE IF NOT EXISTS bia (
                 id_bia INTEGER PRIMARY KEY NOT NULL,
                 id_user INTEGER NOT NULL,
@@ -170,13 +200,16 @@ export class Storage {
                 water_mass FLOAT NOT NULL,
                 FOREIGN KEY (id_user) REFERENCES user (id_user)
             );
-
-            CREATE TABLE IF NOT EXISTS current_user (
-                id_user NOT NULL,
-                FOREIGN KEY (id_user) REFERENCES user (id_user)
-            );
         `);
-        return result.changes;
+        changes += result.changes;
+        
+
+        result = this.db.runSync(`
+            CREATE TABLE IF NOT EXISTS current_user (id_user);
+        `);
+        changes += result.changes;
+
+        return changes;
     }
 
     private static async loadDatabase(resetOldDB: boolean): Promise<Storage> {
@@ -205,5 +238,12 @@ export class Storage {
         const dbFilePath = `${FileSystem.documentDirectory}SQLite/${dbName}`;
         const fileInfo = await FileSystem.getInfoAsync(dbFilePath);
         return fileInfo.exists;
+    }
+
+    static async catDatabase(dbName: string): Promise<string> {
+        const dbFilePath = `${FileSystem.documentDirectory}SQLite/${dbName}`;
+        const content = await FileSystem.readAsStringAsync(dbFilePath);
+
+        return content;
     }
 }
