@@ -9,4 +9,4 @@ Nesta semana foi finalizado o design da PCB (Printed Circuit Board) que será ut
 A PCB será acoplada à balança e irá conter o ESP32, o conversor de impedância, o módulo de carga, e outros componentes.
 
 ![Vista Superior da PCB](/images/pcb-top-view.jpeg)
-![Esquemático da PCB](/static/images/pcb-schematics.jpeg)
+![Esquemático da PCB](/images/pcb-schematics.jpeg)

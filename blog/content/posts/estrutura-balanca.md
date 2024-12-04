@@ -9,5 +9,5 @@ Optamos por utilizar a estrutura de uma balança de uso doméstico já pronta.
 Para que isso funcione, no entanto, foi preciso conectar as células de carga da balança ao módulo HX711.
 Com um programa de calibração no ESP32, foi possível chegar a valores próximos aos acusados pela balança.
 
-![Balança Aberta](/static/images/balanca-aberta.jpeg)
-![Módulo de Carga](/static/images/hx711.jpeg)
+![Balança Aberta](/images/balanca-aberta.jpeg)
+![Módulo de Carga](/images/hx711.jpeg)
