@@ -29,8 +29,6 @@ export default function Index() {
             setup();
         }
     }, [])
-    
-
 
     if (!db) {
         return (
@@ -56,13 +54,34 @@ export default function Index() {
             // justifyContent: "center",
             alignItems: "center",
         }}>
-            <Link href="/NewUser" asChild>
-                <Button title="Create User" />
-            </Link>
+            <View style={{ margin: 20 }}>
+                <View style={{flex: 0, flexDirection: "row" }}>
+                    <View style={{margin: 10}}>
+                        <Link href="/NewBia" asChild>
+                            <Button title="Create BIA" />
+                        </Link>
+                    </View>
+                    <View style={{margin: 10}}>
+                        <Link href="/ViewBias" asChild>
+                            <Button title="View BIAs" />
+                        </Link>
+                    </View>
+                </View>
+                <View style={{flex: 0, flexDirection: "row" }}>
+                    <View style={{margin: 10}}>
+                        <Link href="/NewUser" asChild>
+                            <Button title="Create User" />
+                        </Link>
+                    </View>
+                    <View style={{margin: 10}}>
+                        <Button title="Get Users" onPress={ async () => setUsers(await db.getUsers()) }/>
+                    </View>
+                </View>
 
-            <Button title="Get Users" onPress={ async () => setUsers(await db.getUsers()) }/>
-
+            </View>
+            
             <Users users={users}/>
+
         </ScrollView>
     );
 }

@@ -21,6 +21,8 @@ const CreateUser = () => {
             db = result;
         });
 
+        // TODO Implement this properly. At the time of commit f2fb8cdb989375905aa6143712a643774d43e4db,
+        // this doesnt flush the stack, in such a way that there is a arrow to go back
         useFocusEffect(() => {
             if (newUserId) {
                 router.replace('/');

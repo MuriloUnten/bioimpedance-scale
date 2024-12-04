@@ -5,6 +5,7 @@ export default function RootLayout() {
       <Stack>
           <Stack.Screen name="index" />
           <Stack.Screen name="NewUser" /> 
+          <Stack.Screen name="NewBia" /> 
       </Stack>
   );
 }

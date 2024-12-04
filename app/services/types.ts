@@ -13,8 +13,8 @@ export type User = {
 }
 
 export type Bia = {
-    id: number;
-    userId: number;
+    id: number | undefined;
+    userId: number | undefined;
     timestamp: Date | undefined;
     weight: number;
     muscleMass: number;

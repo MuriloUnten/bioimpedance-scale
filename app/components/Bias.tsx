@@ -1,13 +1,13 @@
-import { User } from "@/services/types";
-import UserCard from "@/components/UserCard";
+import { Bia } from "@/services/types";
+import BiaCard from "@/components/BiaCard";
 
 import { ScrollView } from "react-native";
 
-type UsersProp = {
-    users: User[];
+type BiasProp = {
+    bias: Bia[];
 }
 
-const Users = (props: UsersProp): any => {
+const Bias = (props: BiasProp): any => {
     return (
         <ScrollView>
         {
@@ -16,12 +16,12 @@ const Users = (props: UsersProp): any => {
             // It's being used because the user's id can be undefined.
             // Even though id is never really going to be undefined,
             // it would be a good idea to come up with a better solution
-            props.users.map((u: User, index: number) => (
-                <UserCard user={u} key={u.id ?? index}/>
+            props.bias.map((b: Bia, index: number) => (
+                <BiaCard bia={b} key={b.id ?? index}/>
             ))
         }
         </ScrollView>
     );
 }
 
-export default Users;
+export default Bias;

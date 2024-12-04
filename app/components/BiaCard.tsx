@@ -1,14 +1,14 @@
 import { Storage } from  "@/services/storage"
-import { User, Sex } from "@/services/types";
+import { Bia } from "@/services/types";
 
 import { View, Text } from "react-native";
 
-type UserProp = {
-    user: User;
+type biaProp = {
+    bia: Bia;
     key: number;
 }
 
-const UserCard = (props: UserProp) => {
+const BiaCard = (props: biaProp) => {
     let db: Storage;
     Storage.getInstance(false)
         .then((result) => {
@@ -22,18 +22,19 @@ const UserCard = (props: UserProp) => {
         <View
             style={{
                 justifyContent: "flex-start",
-                backgroundColor: "#b6d6cc",
+                backgroundColor: "#ffecb3",
                 paddingVertical: 10,
                 paddingHorizontal: 20,
                 borderRadius: 8,
                 margin: 8,
             }}
         >
-            <Text style={{fontWeight:"bold", ...textStyle}}>{`${props.user.firstName} ${props.user.lastName}`}</Text>
-            <Text style={textStyle}>{`Height: ${props.user.height}cm`}</Text>
-            <Text style={textStyle}>{`Sex: ${props.user.sex === Sex.MALE? "Male" : "Female"}`}</Text>
+            <Text style={textStyle}>{`Weight: ${props.bia.weight}kg`}</Text>
+            <Text style={textStyle}>{`Muscle Mass: ${props.bia.muscleMass}kg`}</Text>
+            <Text style={textStyle}>{`Fat Mass: ${props.bia.fatMass}kg`}</Text>
+            <Text style={textStyle}>{`Water Mass: ${props.bia.waterMass}kg`}</Text>
         </View>
     );
 }
 
-export default UserCard;
+export default BiaCard;
