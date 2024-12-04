@@ -13,7 +13,7 @@
       <link>https://scale-blog.vercel.app/posts/design-pcb/</link>
       <pubDate>Wed, 04 Dec 2024 01:38:28 -0300</pubDate>
       <guid>https://scale-blog.vercel.app/posts/design-pcb/</guid>
-      <description>&lt;p&gt;Nesta semana foi finalizado o design da PCB (Printed Circuit Board) que será utilizada no projeto.&#xA;A PCB será acoplada à balança e irá conter o ESP32, o conversor de impedância, o módulo de carga, e outros componentes.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://scale-blog.vercel.app/static/images/pcb-top-view.jpeg&#34; alt=&#34;Vista Superior da PCB&#34;&gt;&#xA;&lt;img src=&#34;https://scale-blog.vercel.app/static/images/pcb-schematics.jpeg&#34; alt=&#34;Esquemático da PCB&#34;&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;Nesta semana foi finalizado o design da PCB (Printed Circuit Board) que será utilizada no projeto.&#xA;A PCB será acoplada à balança e irá conter o ESP32, o conversor de impedância, o módulo de carga, e outros componentes.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://scale-blog.vercel.app/images/pcb-top-view.jpeg&#34; alt=&#34;Vista Superior da PCB&#34;&gt;&#xA;&lt;img src=&#34;https://scale-blog.vercel.app/static/images/pcb-schematics.jpeg&#34; alt=&#34;Esquemático da PCB&#34;&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Início da programação do aplicativo</title>
