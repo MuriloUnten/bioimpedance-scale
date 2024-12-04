@@ -1,7 +1,7 @@
 +++
 title = 'Blog e testes iniciais'
 type = 'post'
-date = 2024-09-22T01:38:28-03:00
+date = 2024-11-06T01:38:28-03:00
 draft = false
 +++
 
