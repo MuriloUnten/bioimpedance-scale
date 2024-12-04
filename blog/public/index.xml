@@ -13,7 +13,7 @@
       <link>https://scale-blog.vercel.app/posts/design-pcb/</link>
       <pubDate>Wed, 04 Dec 2024 01:38:28 -0300</pubDate>
       <guid>https://scale-blog.vercel.app/posts/design-pcb/</guid>
-      <description>&lt;p&gt;Nesta semana foi finalizado o design da PCB (Printed Circuit Board) que será utilizada no projeto.&#xA;A PCB será acoplada à balança e irá conter o ESP32, o conversor de impedância, o módulo de carga, e outros componentes.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://scale-blog.vercel.app/static/pcb-top-view.jpeg&#34; alt=&#34;Vista Superior da PCB&#34;&gt;&#xA;&lt;img src=&#34;https://scale-blog.vercel.app/static/pcb-schematics.jpeg&#34; alt=&#34;Esquemático da PCB&#34;&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;Nesta semana foi finalizado o design da PCB (Printed Circuit Board) que será utilizada no projeto.&#xA;A PCB será acoplada à balança e irá conter o ESP32, o conversor de impedância, o módulo de carga, e outros componentes.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://scale-blog.vercel.app/static/images/pcb-top-view.jpeg&#34; alt=&#34;Vista Superior da PCB&#34;&gt;&#xA;&lt;img src=&#34;https://scale-blog.vercel.app/static/images/pcb-schematics.jpeg&#34; alt=&#34;Esquemático da PCB&#34;&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Início da programação do aplicativo</title>
@@ -27,14 +27,14 @@
       <link>https://scale-blog.vercel.app/posts/estrutura-balanca/</link>
       <pubDate>Wed, 20 Nov 2024 01:38:28 -0300</pubDate>
       <guid>https://scale-blog.vercel.app/posts/estrutura-balanca/</guid>
-      <description>&lt;p&gt;Optamos por utilizar a estrutura de uma balança de uso doméstico já pronta.&#xA;Para que isso funcione, no entanto, foi preciso conectar as células de carga da balança ao módulo HX711.&#xA;Com um programa de calibração no ESP32, foi possível chegar a valores próximos aos acusados pela balança.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://scale-blog.vercel.app/static/balanca-aberta.jpeg&#34; alt=&#34;Balança Aberta&#34;&gt;&#xA;&lt;img src=&#34;https://scale-blog.vercel.app/static/hx711.jpeg&#34; alt=&#34;Módulo de Carga&#34;&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;Optamos por utilizar a estrutura de uma balança de uso doméstico já pronta.&#xA;Para que isso funcione, no entanto, foi preciso conectar as células de carga da balança ao módulo HX711.&#xA;Com um programa de calibração no ESP32, foi possível chegar a valores próximos aos acusados pela balança.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://scale-blog.vercel.app/static/images/balanca-aberta.jpeg&#34; alt=&#34;Balança Aberta&#34;&gt;&#xA;&lt;img src=&#34;https://scale-blog.vercel.app/static/images/hx711.jpeg&#34; alt=&#34;Módulo de Carga&#34;&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>CI entregue e testado</title>
       <link>https://scale-blog.vercel.app/posts/ci-entregue/</link>
       <pubDate>Wed, 13 Nov 2024 01:38:28 -0300</pubDate>
       <guid>https://scale-blog.vercel.app/posts/ci-entregue/</guid>
-      <description>&lt;p&gt;Nesta semana chegou o circuito integrado AD5933 (conversor de impedância), e foram feitos testes para garantir que o componente funciona como o esperado.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://scale-blog.vercel.app/static/ad5933.jpeg&#34; alt=&#34;Conversor de Impedância&#34;&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;Nesta semana chegou o circuito integrado AD5933 (conversor de impedância), e foram feitos testes para garantir que o componente funciona como o esperado.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://scale-blog.vercel.app/static/images/ad5933.jpeg&#34; alt=&#34;Conversor de Impedância&#34;&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Blog e testes iniciais</title>

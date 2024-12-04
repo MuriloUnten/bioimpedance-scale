@@ -7,4 +7,4 @@ draft = false
 
 Nesta semana chegou o circuito integrado AD5933 (conversor de impedância), e foram feitos testes para garantir que o componente funciona como o esperado.
 
-![Conversor de Impedância](/static/ad5933.jpeg)
+![Conversor de Impedância](/static/images/ad5933.jpeg)
